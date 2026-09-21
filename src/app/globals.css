@@ -1,26 +1,160 @@
 @import "tailwindcss";
 
+/*
+ * Geist-flavoured tokens (Vercel's palette): near-pure surfaces, hairline
+ * borders, an inverted primary button, and one blue reserved for data and
+ * focus. Dark is a selected set of steps against the dark surface, not an
+ * automatic inversion, and is declared twice — once for the OS setting, once
+ * for the in-app toggle, which must win both ways.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  color-scheme: light;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --plane: #fafafa;
+  --surface: #ffffff;
+
+  --ink-primary: #000000;
+  --ink-secondary: #666666;
+  --ink-muted: #8f8f8f;
+
+  --hairline: #eaeaea;
+  --gridline: #ebebeb;
+  --wash: #f2f2f2;
+
+  /* Primary action inverts against the page, the way Vercel's buttons do. */
+  --btn-bg: #000000;
+  --btn-fg: #ffffff;
+
+  /* Reserved for data marks, links and focus — never as a surface. */
+  --accent: #0072f5;
+  --meter-track: #8fbaf4;
+
+  /* Status roles. Each clears 3:1 on this surface, and always ships with an
+     icon or a label so meaning never rests on hue alone. */
+  --status-good: #45a557;
+  --status-warning: #ab6e00;
+  --status-serious: #d27504;
+  --status-critical: #e5484d;
+
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-overlay: 0 8px 30px rgba(0, 0, 0, 0.12);
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --plane: #000000;
+    --surface: #0a0a0a;
+
+    --ink-primary: #ededed;
+    --ink-secondary: #a1a1a1;
+    --ink-muted: #8f8f8f;
+
+    --hairline: #2e2e2e;
+    --gridline: #1f1f1f;
+    --wash: #1a1a1a;
+
+    --btn-bg: #ededed;
+    --btn-fg: #000000;
+
+    --accent: #3291ff;
+    --meter-track: #1c4d8c;
+
+    --status-good: #62c073;
+    --status-warning: #f5a623;
+    --status-serious: #f5a623;
+    --status-critical: #ff6369;
+
+    --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.6);
+    --shadow-overlay: 0 8px 30px rgba(0, 0, 0, 0.7);
   }
 }
 
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --plane: #000000;
+  --surface: #0a0a0a;
+
+  --ink-primary: #ededed;
+  --ink-secondary: #a1a1a1;
+  --ink-muted: #8f8f8f;
+
+  --hairline: #2e2e2e;
+  --gridline: #1f1f1f;
+  --wash: #1a1a1a;
+
+  --btn-bg: #ededed;
+  --btn-fg: #000000;
+
+  --accent: #3291ff;
+  --meter-track: #1c4d8c;
+
+  --status-good: #62c073;
+  --status-warning: #f5a623;
+  --status-serious: #f5a623;
+  --status-critical: #ff6369;
+
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.6);
+  --shadow-overlay: 0 8px 30px rgba(0, 0, 0, 0.7);
+}
+
+@theme inline {
+  --color-plane: var(--plane);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink-primary);
+  --color-ink-secondary: var(--ink-secondary);
+  --color-ink-muted: var(--ink-muted);
+  --color-hairline: var(--hairline);
+  --color-gridline: var(--gridline);
+  --color-wash: var(--wash);
+  --color-accent: var(--accent);
+  --color-btn: var(--btn-bg);
+  --color-btn-fg: var(--btn-fg);
+
+  --font-sans: var(--font-geist-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+html {
+  /* Keeps the layout from shifting when a dialog locks scrolling. */
+  scrollbar-gutter: stable;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--plane);
+  color: var(--ink-primary);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Columns of numbers align; large standalone figures stay proportional. */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Native date inputs render a near-invisible picker icon on dark surfaces. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1) opacity(0.7);
+  }
+}
+
+:root[data-theme="dark"] input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) opacity(0.7);
+}
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
 }
