@@ -31,9 +31,9 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # env files (can opt-in for committing if needed)
+# Required variables are documented in the README instead of a checked-in
+# template, so nothing env-shaped should ever be committed.
 .env*
-# ...but the template carries no secrets and is meant to be committed.
-!.env.local.example
 
 # vercel
 .vercel

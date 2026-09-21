@@ -16,9 +16,10 @@ const STEPS = [
     then <code className={CODE}>0002_calendar.sql</code>.
   </>,
   <>
-    Copy <code className={CODE}>.env.local.example</code> to{" "}
-    <code className={CODE}>.env.local</code> and paste in your project URL and anon key
-    from Settings → API.
+    Create <code className={CODE}>.env.local</code> in the project root with{" "}
+    <code className={CODE}>NEXT_PUBLIC_SUPABASE_URL</code> and{" "}
+    <code className={CODE}>NEXT_PUBLIC_SUPABASE_ANON_KEY</code>, from Settings → API.
+    Use the <em>publishable</em> key, never the secret one.
   </>,
   <>
     Restart <code className={CODE}>npm run dev</code>.

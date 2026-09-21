@@ -17,8 +17,26 @@ Next.js 16 (App Router) · TypeScript · Tailwind CSS v4 · Supabase.
 2. Open the SQL Editor and run, in order:
    - `supabase/migrations/0001_init.sql`
    - `supabase/migrations/0002_calendar.sql`
-3. Copy `.env.local.example` to `.env.local` and fill in the project URL and
-   anon key from **Project Settings → API**.
+3. Create `.env.local` in the project root:
+
+```ini
+NEXT_PUBLIC_SUPABASE_URL=https://<your-project-ref>.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<publishable key>
+
+# Optional — Google Calendar import. Leave blank to hide the connect button;
+# Calendly works without them. Server-only: no NEXT_PUBLIC_ prefix, so they
+# never reach the browser bundle.
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+
+# Production only, so the OAuth redirect matches your real domain.
+# NEXT_PUBLIC_SITE_URL=https://your-app.vercel.app
+```
+
+Both Supabase values come from **Project Settings → API**. Use the key labelled
+**`anon` / `publishable`** — never `service_role` / `sb_secret_…`, which bypasses
+row-level security entirely and would be shipped to every browser by the
+`NEXT_PUBLIC_` prefix.
 
 ```bash
 npm install

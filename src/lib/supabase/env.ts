@@ -8,8 +8,9 @@ export function supabaseEnv() {
 
   if (!url || !key) {
     throw new Error(
-      "Supabase is not configured. Copy .env.local.example to .env.local and " +
-        "fill in NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.",
+      "Supabase is not configured. Create .env.local in the project root with " +
+        "NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY, then restart " +
+        "the dev server.",
     );
   }
 
