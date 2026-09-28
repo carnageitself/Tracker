@@ -8,13 +8,23 @@ import { BTN_GHOST, CARD } from "./ui";
 
 type SortKey = "full_name" | "lead_date" | "follow_up" | "progress" | "pv_amount";
 
-const HEADERS: Array<{ key: SortKey | null; label: string; align?: "right" }> = [
+/**
+ * Widths keep the row readable when the page runs full-bleed: everything but
+ * the Lead column is capped, so the extra width on a wide monitor is absorbed
+ * by the name rather than stranding Pipeline and PV in whitespace.
+ */
+const HEADERS: Array<{
+  key: SortKey | null;
+  label: string;
+  align?: "right";
+  w?: string;
+}> = [
   { key: "full_name", label: "Lead" },
-  { key: "lead_date", label: "Date" },
-  { key: "follow_up", label: "Follow up" },
-  { key: "progress", label: "Pipeline" },
-  { key: "pv_amount", label: "PV", align: "right" },
-  { key: null, label: "" },
+  { key: "lead_date", label: "Date", w: "w-36" },
+  { key: "follow_up", label: "Follow up", w: "w-44" },
+  { key: "progress", label: "Pipeline", w: "w-56" },
+  { key: "pv_amount", label: "PV", align: "right", w: "w-28" },
+  { key: null, label: "", w: "w-32" },
 ];
 
 function compare(a: Lead, b: Lead, key: SortKey): number {
@@ -164,7 +174,7 @@ export function LeadTable({
         <table className="w-full border-collapse text-left text-sm">
           <thead>
             <tr className="border-b border-gridline">
-              {HEADERS.map(({ key, label, align }) => (
+              {HEADERS.map(({ key, label, align, w }) => (
                 <th
                   key={label || "actions"}
                   scope="col"
@@ -177,7 +187,7 @@ export function LeadTable({
                   }
                   className={`px-4 py-2.5 text-xs font-medium text-ink-secondary ${
                     align === "right" ? "text-right" : ""
-                  }`}
+                  } ${w ?? ""}`}
                 >
                   {key ? (
                     <button

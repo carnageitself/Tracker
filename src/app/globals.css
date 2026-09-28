@@ -143,15 +143,20 @@ body {
   border-radius: 6px;
 }
 
-/* Native date inputs render a near-invisible picker icon on dark surfaces. */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) input[type="date"]::-webkit-calendar-picker-indicator {
-    filter: invert(1) opacity(0.7);
-  }
+/*
+ * The date popover is positioned in JS against its trigger, so the UA's
+ * default centring inset has to be cleared. Living in the top layer is the
+ * point: inside the lead dialog it would otherwise be clipped by the
+ * scrolling form body.
+ */
+.date-popover {
+  inset: auto;
+  overflow: visible;
+  color: var(--ink-primary);
 }
 
-:root[data-theme="dark"] input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(1) opacity(0.7);
+.date-popover::backdrop {
+  background: transparent;
 }
 
 dialog::backdrop {

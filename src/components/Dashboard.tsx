@@ -85,7 +85,7 @@ export function Dashboard({
   return (
     <div className="flex min-h-full flex-col">
       <header className="sticky top-0 z-10 border-b border-hairline bg-plane/80 backdrop-blur-sm">
-        <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center gap-2 px-4 py-3 sm:px-6">
+        <div className="flex w-full flex-wrap items-center gap-2 px-4 py-3 sm:px-6 lg:px-8">
           <div className="mr-auto min-w-0">
             <h1 className="text-base font-semibold tracking-tight text-ink">
               Lead Tracker
@@ -144,7 +144,7 @@ export function Dashboard({
         </div>
       </header>
 
-      <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6 sm:px-6 sm:py-8">
+      <main className="w-full flex-1 px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
         <section
           aria-label="Pipeline summary"
           className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4"

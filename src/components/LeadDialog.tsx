@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { todayISO } from "@/lib/leads";
+import { DatePicker } from "./DatePicker";
 import {
   MILESTONES,
   MILESTONE_LABELS,
@@ -143,12 +144,10 @@ export function LeadDialog({
                 />
               </Field>
               <Field label="Date">
-                <input
-                  type="date"
+                <DatePicker
                   name="lead_date"
                   required
                   defaultValue={lead?.lead_date ?? todayISO()}
-                  className={INPUT}
                 />
               </Field>
               <Field label="PV (personal volume)">
@@ -172,11 +171,10 @@ export function LeadDialog({
               <div className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {MILESTONES.map((milestone) => (
                   <Field key={milestone} label={MILESTONE_LABELS[milestone]}>
-                    <input
-                      type="date"
+                    <DatePicker
                       name={milestone}
                       defaultValue={lead?.[milestone] ?? ""}
-                      className={INPUT}
+                      placeholder="Not yet"
                     />
                   </Field>
                 ))}

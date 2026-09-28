@@ -22,7 +22,7 @@ export default async function IntegrationsPage({ searchParams }: PageProps<"/int
     Array.isArray(value) ? value[0] : value;
 
   return (
-    <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-8 sm:px-6 sm:py-10">
+    <main className="w-full flex-1 px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
       <Link
         href="/"
         className="text-sm text-ink-secondary underline-offset-4 hover:text-ink hover:underline"
