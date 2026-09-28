@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { todayISO } from "@/lib/leads";
+import { useModalDialog } from "@/lib/useModalDialog";
 import { DatePicker } from "./DatePicker";
 import {
   MILESTONES,
@@ -53,13 +54,7 @@ export function LeadDialog({
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Native <dialog> gives us Escape, the backdrop, and focus containment.
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    if (open && !el.open) el.showModal();
-    if (!open && el.open) el.close();
-  }, [open]);
+  useModalDialog(ref, open, onClose);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -89,7 +84,6 @@ export function LeadDialog({
   return (
     <dialog
       ref={ref}
-      onClose={onClose}
       aria-labelledby="lead-dialog-title"
       className={`${DIALOG} sm:w-[min(44rem,calc(100vw-2rem))]`}
     >

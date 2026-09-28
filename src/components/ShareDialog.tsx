@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState, useTransition } from "react";
+import { useRef, useState, useTransition } from "react";
 import { removeShare, shareList } from "@/app/actions";
+import { useModalDialog } from "@/lib/useModalDialog";
 import type { ListRef, ShareGrant } from "@/lib/data";
 import { BTN_GHOST, BTN_PRIMARY, BTN_SECONDARY, DIALOG, INPUT, LABEL } from "./ui";
 
@@ -52,12 +53,7 @@ export function ShareDialog({
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    if (open && !el.open) el.showModal();
-    if (!open && el.open) el.close();
-  }, [open]);
+  useModalDialog(ref, open, onClose);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -90,7 +86,6 @@ export function ShareDialog({
   return (
     <dialog
       ref={ref}
-      onClose={onClose}
       aria-labelledby="share-dialog-title"
       className={`${DIALOG} sm:w-[min(34rem,calc(100vw-2rem))]`}
     >
